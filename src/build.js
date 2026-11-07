@@ -48,12 +48,19 @@ function readWispUrl(raw, variable) {
 const readWispList = variable => [...new Set((process.env[variable] ?? "").split(",").map(entry => readWispUrl(entry, variable)).filter(Boolean))];
 
 
+// Built-in Wisp servers, used when WISP_URL, WISP_PREFERRED and WISP_FALLBACK are all unset.
+const DEFAULT_WISP_PREFERRED = ["wss://wisp.mercurywork.shop/"];
+const DEFAULT_WISP_FALLBACK = ["wss://wispbyte.com/", "wss://anura.pro/wisp/"];
+
 function resolveNetlifyWisp() {
   const single = readWispList("WISP_URL");
   if (single.length) return { preferred: single, fallback: [], source: "WISP_URL" };
   const preferred = readWispList("WISP_PREFERRED");
   const fallback = readWispList("WISP_FALLBACK").filter(url => !preferred.includes(url));
-  return { preferred, fallback, source: "WISP_PREFERRED / WISP_FALLBACK" };
+  if (preferred.length || fallback.length) return { preferred, fallback, source: "WISP_PREFERRED / WISP_FALLBACK" };
+  const defaults = list => list.map(url => readWispUrl(url, "built-in Wisp default"));
+  const defaultPreferred = defaults(DEFAULT_WISP_PREFERRED);
+  return { preferred: defaultPreferred, fallback: defaults(DEFAULT_WISP_FALLBACK).filter(url => !defaultPreferred.includes(url)), source: "built-in defaults" };
 }
 
 
