@@ -64,6 +64,8 @@
 > You can also use `WISP_URL` if you only need a single server. When set, it takes priority over both lists.
 >
 > Servers without a protocol automatically use `wss://`.
+>
+> If none of these variables are set, the build falls back to built-in servers: `wss://wisp.mercurywork.shop/` (preferred), then `wss://wispbyte.com/` and `wss://anura.pro/wisp/` (fallback).
 
 8. Click **Deploy** and wait for the build to finish.
 
