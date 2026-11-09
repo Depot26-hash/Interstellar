@@ -143,7 +143,7 @@ document.getElementById("about-blank-button").addEventListener("click", openHome
 (function buildHeading() {
   const heading = document.querySelector("h1.title");
   if (!heading) return;
-  const codes = [73, 110, 116, 101, 114, 115, 116, 101, 108, 108, 97, 114];
+  const codes = [102, 117, 108, 108, 121, 112, 97, 114, 97, 107, 101, 101, 116];
   const twins = { 116: "т", 101: "е", 115: "ѕ", 97: "а", 73: "І" };
   const invisible = ["​", "‌", "‍", "⁠"];
   const wrappers = ["span", "x-a", "x-b", "ab-x", "s-p", "n-a"];
